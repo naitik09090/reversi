@@ -27,6 +27,168 @@
   <meta name="description"
     content="Play Reversi Premium — the classic strategic board game (Othello) with a built-in AI, move history, and modern responsive design. Challenge yourself or a friend." />
   <title>Reversi Premium — Classic Othello Strategy</title>
+
+  <style>
+    :root {
+      --bg-main: #0a0a0c;
+      --bg-surface: #16161a;
+      --bg-board: #1a3326;
+      --bg-board-light: #244635;
+      --accent-primary: #aa3bff;
+      --accent-gold: #d4af37;
+      --accent-gold-glow: rgba(212, 175, 55, 0.3);
+      --text-primary: #f0f0f2;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --glass-bg: rgba(255, 255, 255, 0.03);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      --font-main: 'Inter', system-ui, sans-serif;
+      --font-display: 'Outfit', sans-serif;
+      --container-max: 1400px;
+      --sidebar-w: 280px;
+      --transition-smooth: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    [data-theme='light'] {
+      --bg-main: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-board: #2d5a42;
+      --bg-board-light: #3d7a58;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #94a3b8;
+      --glass-bg: rgba(255, 255, 255, 0.7);
+      --glass-border: rgba(15, 23, 42, 0.1);
+      --glass-shadow: 0 8px 32px 0 rgba(15, 23, 42, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background-color: var(--bg-main);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: background-color 0.5s ease;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #root {
+      width: 100%;
+    }
+
+    .app-wrapper {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .hero-section {
+      height: 100vh;
+      height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      background: radial-gradient(circle at top right, rgba(170, 59, 255, 0.1), transparent), radial-gradient(circle at bottom left, rgba(212, 175, 55, 0.05), transparent);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-content {
+      text-align: center;
+      max-width: 900px;
+      width: 100%;
+      z-index: 10;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 12vw, 6rem);
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 2rem;
+      letter-spacing: -0.04em;
+    }
+
+    .hero-title-main {
+      background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-muted) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: block;
+    }
+
+    .hero-title-sub {
+      font-size: clamp(1rem, 3vw, 1.25rem);
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      font-weight: 600;
+      display: block;
+      margin-top: 0.5rem;
+    }
+
+    .hero-desc {
+      font-size: clamp(1rem, 4vw, 1.25rem);
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.5;
+    }
+
+    .btn-hero-mode {
+      width: 100%;
+      max-width: 320px;
+      padding: 1.25rem 2rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+      background: var(--glass-bg);
+      color: var(--text-primary);
+      border-radius: 100px;
+      border: 1px solid var(--glass-border);
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .loading-screen {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--accent-gold);
+      background: var(--bg-main);
+    }
+
+    /* ... rest of the CSS is loaded via external file if needed, but for hero it's inlined ... */
+  </style>
+
+  <script>
+    // Critical CSS loading for the rest of the app
+    window.addEventListener('DOMContentLoaded', () => {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = '/src/index.css';
+      document.head.appendChild(link);
+    });
+  </script>
 </head>
 
 <body>
