@@ -1,35 +1,29 @@
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
-import HeroSection from './components/HeroSection';
 import { useTheme } from './hooks/useTheme';
 import './App.css';
 
-// Lazy load heavy components
+// Lazy load all components to maximize bundle efficiency
+const Home = lazy(() => import('./Home'));
 const GameController = lazy(() => import('./components/GameController'));
-
-import { useSearchParams } from 'react-router-dom';
-
-function Home() {
-  const navigate = useNavigate();
-  const handleStartGame = (mode) => {
-    navigate(`/play?mode=${mode}`);
-  };
-  return <HeroSection onStartGame={handleStartGame} />;
-}
 
 function GamePage() {
   const { theme, toggleTheme } = useTheme();
-  const [searchParams] = useSearchParams();
+  const searchParams = new URLSearchParams(window.location.search);
   const mode = searchParams.get('mode') || '2p';
 
-  return <GameController key={mode} theme={theme} onToggleTheme={toggleTheme} initialMode={mode} />;
+  return (
+    <Suspense fallback={<div className="loading-screen">Preparing Board...</div>}>
+      <GameController key={mode} theme={theme} onToggleTheme={toggleTheme} initialMode={mode} />
+    </Suspense>
+  );
 }
 
 function App() {
   return (
     <Router>
       <div className="app-wrapper">
-        <Suspense fallback={<div className="loading-screen">Loading Game...</div>}>
+        <Suspense fallback={<div className="loading-screen">Loading Reversi...</div>}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/play" element={<GamePage />} />

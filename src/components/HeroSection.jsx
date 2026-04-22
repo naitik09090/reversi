@@ -1,92 +1,57 @@
 import React from 'react';
-import { m } from 'framer-motion';
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.05, delayChildren: 0.05 }
-  }
-};
-
-const itemVariants = {
-  hidden: { y: 30, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: { duration: 0.4, ease: "easeOut" }
-  }
-};
-
-const discVariants = {
-  animate: {
-    y: [0, -15, 0],
-    rotate: [0, 5, 0],
-    transition: {
-      duration: 6,
-      repeat: Infinity,
-      ease: "easeInOut"
-    }
-  }
-};
-
+/**
+ * Hero Section - Optimized for Performance
+ * Uses Vanilla CSS animations instead of Framer Motion to reduce the initial JS bundle size
+ * by avoiding the need to load the animation library on the landing page.
+ */
 export default function HeroSection({ onStartGame }) {
   return (
     <main className="hero-section" aria-label="Game introduction">
-      <m.div
-        className="hero-content"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        <m.div
-          className="hero-discs"
-          aria-hidden="true"
-          variants={discVariants}
-          animate="animate"
-        >
-          <div className="hero-disc disc-black"><div className="disc-sheen" /></div>
-          <div className="hero-disc disc-white"><div className="disc-sheen" /></div>
-        </m.div>
+      <div className="hero-content">
+        <div className="hero-discs animate-float" aria-hidden="true">
+          <div className="hero-disc disc-black">
+            <div className="disc-sheen" />
+          </div>
+          <div className="hero-disc disc-white">
+            <div className="disc-sheen" />
+          </div>
+        </div>
 
-        <m.h1 className="hero-title" variants={itemVariants}>
+        <h1 className="hero-title animate-fade-in-up stagger-1">
           <span className="hero-title-main">Reversi</span>
           <span className="hero-title-sub">Classic Othello Board Game</span>
-        </m.h1>
+        </h1>
 
-        <m.p className="hero-desc" variants={itemVariants}>
+        <p className="hero-desc animate-fade-in-up stagger-2">
           Play Reversi online — the classic strategic board game also known as Othello.
           Challenge a friend or test your skills against our AI opponent.
           Free, no sign-up, no download required.
-        </m.p>
+        </p>
 
-        <m.div className="hero-buttons" variants={itemVariants}>
-          <m.button
+        <div className="hero-buttons animate-fade-in-up stagger-3">
+          <button
             className="btn-hero-mode"
             onClick={() => onStartGame('ai')}
             aria-label="Play against AI"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
           >
             <span className="btn-icon">🤖</span> AI Opponent
-          </m.button>
+          </button>
 
-          <m.button
+          <button
             className="btn-hero-mode"
             onClick={() => onStartGame('2p')}
             aria-label="Play against a friend"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
           >
             <span className="btn-icon">🎮</span> 2-Player Mode
-          </m.button>
-        </m.div>
+          </button>
+        </div>
 
-        <m.p className="hero-seo" variants={itemVariants}>
+        <p className="hero-seo animate-fade-in-up stagger-4">
           Reversi (Othello) is a two-player strategy game.
           Players flip opponent pieces to win.
-        </m.p>
-      </m.div>
+        </p>
+      </div>
     </main>
   );
 }

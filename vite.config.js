@@ -9,6 +9,10 @@ export default defineConfig({
     host: true,
   },
   build: {
+    // Completely disable module preloading. This prevents the browser from
+    // downloading "react-vendor" and "framer-vendor" until they are actually
+    // needed, solving the "Reduce unused JavaScript" Lighthouse warning.
+    modulePreload: false,
     rollupOptions: {
       output: {
         manualChunks(id) {
