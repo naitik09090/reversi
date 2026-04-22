@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate, useSearchParams } from 'react-router-dom';
 import { useTheme } from './hooks/useTheme';
 import './App.css';
 
@@ -9,7 +9,7 @@ const GameController = lazy(() => import('./components/GameController'));
 
 function GamePage() {
   const { theme, toggleTheme } = useTheme();
-  const searchParams = new URLSearchParams(window.location.search);
+  const [searchParams] = useSearchParams();
   const mode = searchParams.get('mode') || '2p';
 
   return (
