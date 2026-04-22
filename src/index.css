@@ -751,7 +751,7 @@ body {
 }
 
 .modal-subtitle {
-  color: var(--text-muted);
+  color: #ffffff;
   text-transform: uppercase;
   letter-spacing: 0.2em;
   font-size: 0.9rem;
