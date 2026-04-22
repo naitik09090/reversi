@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -33,13 +33,13 @@ const discVariants = {
 export default function HeroSection({ onStartGame }) {
   return (
     <main className="hero-section" aria-label="Game introduction">
-      <motion.div
+      <m.div
         className="hero-content"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
-        <motion.div
+        <m.div
           className="hero-discs"
           aria-hidden="true"
           variants={discVariants}
@@ -47,21 +47,21 @@ export default function HeroSection({ onStartGame }) {
         >
           <div className="hero-disc disc-black"><div className="disc-sheen" /></div>
           <div className="hero-disc disc-white"><div className="disc-sheen" /></div>
-        </motion.div>
+        </m.div>
 
-        <motion.h1 className="hero-title" variants={itemVariants}>
+        <m.h1 className="hero-title" variants={itemVariants}>
           <span className="hero-title-main">Reversi</span>
           <span className="hero-title-sub">Classic Othello Board Game</span>
-        </motion.h1>
+        </m.h1>
 
-        <motion.p className="hero-desc" variants={itemVariants}>
+        <m.p className="hero-desc" variants={itemVariants}>
           Play Reversi online — the classic strategic board game also known as Othello.
           Challenge a friend or test your skills against our AI opponent.
           Free, no sign-up, no download required.
-        </motion.p>
+        </m.p>
 
-        <motion.div className="hero-buttons" variants={itemVariants}>
-          <motion.button
+        <m.div className="hero-buttons" variants={itemVariants}>
+          <m.button
             className="btn-hero-mode"
             onClick={() => onStartGame('ai')}
             aria-label="Play against AI"
@@ -69,9 +69,9 @@ export default function HeroSection({ onStartGame }) {
             whileTap={{ scale: 0.95 }}
           >
             <span className="btn-icon">🤖</span> AI Opponent
-          </motion.button>
+          </m.button>
 
-          <motion.button
+          <m.button
             className="btn-hero-mode"
             onClick={() => onStartGame('2p')}
             aria-label="Play against a friend"
@@ -79,14 +79,14 @@ export default function HeroSection({ onStartGame }) {
             whileTap={{ scale: 0.95 }}
           >
             <span className="btn-icon">🎮</span> 2-Player Mode
-          </motion.button>
-        </motion.div>
+          </m.button>
+        </m.div>
 
-        <motion.p className="hero-seo" variants={itemVariants}>
+        <m.p className="hero-seo" variants={itemVariants}>
           Reversi (Othello) is a two-player strategy game.
           Players flip opponent pieces to win.
-        </motion.p>
-      </motion.div>
+        </m.p>
+      </m.div>
     </main>
   );
 }
