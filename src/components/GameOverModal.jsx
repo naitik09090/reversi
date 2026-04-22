@@ -119,10 +119,12 @@ export default function GameOverModal({ gameOver, winner, scores, onRestart }) {
                             </motion.div>
                         </div>
 
+                        {/* Winner Bar: Using scaleX to avoid Forced Reflow (composited animation) */}
                         <motion.div
                             className="modal-winner-bar"
-                            initial={{ width: 0, opacity: 0 }}
-                            animate={{ width: '100%', opacity: 1 }}
+                            initial={{ scaleX: 0, opacity: 0 }}
+                            animate={{ scaleX: 1, opacity: 1 }}
+                            style={{ transformOrigin: 'left' }}
                             transition={{ delay: 1.3, duration: 0.8 }}
                         >
                             <div

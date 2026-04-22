@@ -7,5 +7,22 @@ export default defineConfig({
   server: {
     port: 8080,
     host: true,
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('react')) {
+              return 'react-vendor';
+            }
+            if (id.includes('framer-motion')) {
+              return 'framer-vendor';
+            }
+            return 'vendor';
+          }
+        }
+      }
+    }
   }
 })

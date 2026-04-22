@@ -180,15 +180,7 @@
     /* ... rest of the CSS is loaded via external file if needed, but for hero it's inlined ... */
   </style>
 
-  <script>
-    // Critical CSS loading for the rest of the app
-    window.addEventListener('DOMContentLoaded', () => {
-      const link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href = '/src/index.css';
-      document.head.appendChild(link);
-    });
-  </script>
+
 </head>
 
 <body>

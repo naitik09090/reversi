@@ -13,14 +13,13 @@ const getMoveCommentary = (move) => {
 };
 
 export default function MoveHistory({ moveHistory }) {
-    const listRef = useRef(null);
+    const bottomRef = useRef(null);
 
+    // Auto-scroll to bottom using scrollIntoView on a dummy element
+    // This avoids querying scrollHeight and prevents "Forced Reflow"
     useEffect(() => {
-        if (listRef.current) {
-            listRef.current.scrollTo({
-                top: listRef.current.scrollHeight,
-                behavior: 'smooth'
-            });
+        if (bottomRef.current) {
+            bottomRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
     }, [moveHistory]);
 
@@ -30,7 +29,7 @@ export default function MoveHistory({ moveHistory }) {
             {moveHistory.length === 0 ? (
                 <p className="no-moves">Matches start with silence...</p>
             ) : (
-                <div className="move-list timeline-view" ref={listRef}>
+                <div className="move-list timeline-view">
                     <AnimatePresence initial={false}>
                         {moveHistory.map((move, i) => (
                             <motion.div
@@ -57,6 +56,8 @@ export default function MoveHistory({ moveHistory }) {
                             </motion.div>
                         ))}
                     </AnimatePresence>
+                    {/* Dummy element for auto-scrolling */}
+                    <div ref={bottomRef} style={{ height: 1, marginTop: -1 }} />
                 </div>
             )}
         </div>

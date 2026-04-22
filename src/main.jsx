@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { LazyMotion } from 'framer-motion'
 import App from './App.jsx'
+import './index.css'
 
 // Load animation features asynchronously to reduce initial bundle size
 const loadFeatures = () => import('./utils/framerFeatures.js').then(res => res.default);

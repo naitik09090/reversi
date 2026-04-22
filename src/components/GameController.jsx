@@ -1,14 +1,16 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, lazy, Suspense } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Settings, X, History } from 'lucide-react';
 import Board from './Board';
 import ScoreBoard from './ScoreBoard';
 import GameControls from './GameControls';
-import MoveHistory from './MoveHistory';
-import GameOverModal from './GameOverModal';
 import PassMessage from './PassMessage';
 import { useGame } from '../hooks/useGame';
 import { useSound } from '../hooks/useSound';
+
+// Lazy load non-critical components to reduce initial JS bundle size
+const MoveHistory = lazy(() => import('./MoveHistory'));
+const GameOverModal = lazy(() => import('./GameOverModal'));
 
 export default function GameController({ theme, onToggleTheme, initialMode }) {
     const game = useGame(initialMode);
@@ -151,17 +153,21 @@ export default function GameController({ theme, onToggleTheme, initialMode }) {
                                 <X size={24} />
                             </button>
                         </div>
-                        <MoveHistory moveHistory={game.moveHistory} />
+                        <Suspense fallback={<div className="loading-history">Loading history...</div>}>
+                            <MoveHistory moveHistory={game.moveHistory} />
+                        </Suspense>
                     </aside>
                 </div>
             </div>
 
-            <GameOverModal
-                gameOver={gameOver}
-                winner={winner}
-                scores={scores}
-                onRestart={handleRestart}
-            />
+            <Suspense fallback={null}>
+                <GameOverModal
+                    gameOver={gameOver}
+                    winner={winner}
+                    scores={scores}
+                    onRestart={handleRestart}
+                />
+            </Suspense>
         </main>
     );
 }
