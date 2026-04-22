@@ -15,7 +15,7 @@ export default function GameController({ theme, onToggleTheme, initialMode }) {
     const { playPlace, playFlip, playWin } = useSound();
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const [isHistoryOpen, setIsHistoryOpen] = useState(false);
-    const [, setSearchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const handleSetMode = useCallback((newMode) => {
         setSearchParams({ mode: newMode });

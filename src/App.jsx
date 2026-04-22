@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import HeroSection from './components/HeroSection';
-import GameController from './components/GameController';
 import { useTheme } from './hooks/useTheme';
 import './App.css';
+
+// Lazy load heavy components
+const GameController = lazy(() => import('./components/GameController'));
 
 import { useSearchParams } from 'react-router-dom';
 
@@ -27,10 +29,12 @@ function App() {
   return (
     <Router>
       <div className="app-wrapper">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/play" element={<GamePage />} />
-        </Routes>
+        <Suspense fallback={<div className="loading-screen">Loading Game...</div>}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/play" element={<GamePage />} />
+          </Routes>
+        </Suspense>
       </div>
     </Router>
   );

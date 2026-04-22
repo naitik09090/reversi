@@ -5,16 +5,16 @@ const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.15, delayChildren: 0.2 }
+    transition: { staggerChildren: 0.05, delayChildren: 0.05 }
   }
 };
 
 const itemVariants = {
   hidden: { y: 30, opacity: 0 },
-  visible: { 
-    y: 0, 
+  visible: {
+    y: 0,
     opacity: 1,
-    transition: { duration: 0.8, ease: [0.6, -0.05, 0.01, 0.9] }
+    transition: { duration: 0.4, ease: "easeOut" }
   }
 };
 
@@ -32,21 +32,21 @@ const discVariants = {
 
 export default function HeroSection({ onStartGame }) {
   return (
-    <section className="hero-section" aria-label="Game introduction">
+    <main className="hero-section" aria-label="Game introduction">
       <motion.div
         className="hero-content"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
-        <motion.div 
-          className="hero-discs" 
+        <motion.div
+          className="hero-discs"
           aria-hidden="true"
           variants={discVariants}
           animate="animate"
         >
-          <div className="hero-disc disc-black"><div className="disc-sheen"/></div>
-          <div className="hero-disc disc-white"><div className="disc-sheen"/></div>
+          <div className="hero-disc disc-black"><div className="disc-sheen" /></div>
+          <div className="hero-disc disc-white"><div className="disc-sheen" /></div>
         </motion.div>
 
         <motion.h1 className="hero-title" variants={itemVariants}>
@@ -61,9 +61,9 @@ export default function HeroSection({ onStartGame }) {
         </motion.p>
 
         <motion.div className="hero-buttons" variants={itemVariants}>
-          <motion.button 
-            className="btn-hero-mode" 
-            onClick={() => onStartGame('ai')} 
+          <motion.button
+            className="btn-hero-mode"
+            onClick={() => onStartGame('ai')}
             aria-label="Play against AI"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -71,9 +71,9 @@ export default function HeroSection({ onStartGame }) {
             <span className="btn-icon">🤖</span> AI Opponent
           </motion.button>
 
-          <motion.button 
-            className="btn-hero-mode" 
-            onClick={() => onStartGame('2p')} 
+          <motion.button
+            className="btn-hero-mode"
+            onClick={() => onStartGame('2p')}
             aria-label="Play against a friend"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -87,6 +87,6 @@ export default function HeroSection({ onStartGame }) {
           Players flip opponent pieces to win.
         </motion.p>
       </motion.div>
-    </section>
+    </main>
   );
-}
+}
