@@ -2,7 +2,7 @@
 
 A high-fidelity, performance-optimized Reversi (Othello) implementation built with **React**, **Vite**, and **Framer Motion**. Challenge your friends or test your strategic depth against our built-in AI.
 
-![Reversi Game Showcase](https://images.unsplash.com/photo-1611996598538-d335c2a78311?q=80&w=2070&auto=format&fit=crop)
+![Reversi Game Showcase](/public/showcase.png)
 
 ## ✨ Key Features
 
