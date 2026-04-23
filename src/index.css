@@ -1062,15 +1062,17 @@ body {
   .game-layout {
     display: flex;
     flex-direction: column;
-    padding-top: auto;
-    /* Header space */
-    padding-bottom: auto;
-    /* Space for bottom buttons */
+    padding-top: 80px;
+    /* Fixed from invalid 'auto' */
+    padding-bottom: 90px;
+    /* Fixed from invalid 'auto' */
     align-items: center;
     justify-content: center;
     min-height: 100vh;
     width: 100%;
     position: relative;
+    contain: layout;
+    /* Performance optimization */
   }
 
   .game-main {
@@ -1080,6 +1082,7 @@ body {
     align-items: center;
     justify-content: center;
     flex: 1;
+    contain: layout style;
   }
 
   .board-wrapper {
@@ -1089,6 +1092,13 @@ body {
     margin: 0 !important;
     aspect-ratio: 1;
     height: auto !important;
+    contain: content;
+    /* Significant layout boost */
+  }
+
+  .board-cell {
+    contain: paint;
+    /* Isolate individual cell rendering */
   }
 
   /* PERFORMANCE OPTIMIZATIONS (Smoothness Fix) */
