@@ -122,7 +122,7 @@ export default function GameController({ theme, onToggleTheme, initialMode }) {
                                 scores={scores}
                                 currentPlayer={currentPlayer}
                                 gameOver={gameOver}
-                                winner={winner}
+                                winner={winner} 
                                 mode={mode}
                             />
 
@@ -135,11 +135,6 @@ export default function GameController({ theme, onToggleTheme, initialMode }) {
                                 disabled={gameOver || isAIThinking}
                             />
 
-                            {isAIThinking && (
-                                <div className="ai-thinking" aria-live="polite">
-                                    🤖 AI is thinking...
-                                </div>
-                            )}
 
                             <div className="game-hint" aria-live="polite">
                                 {!game.gameOver && !isAIThinking && (
@@ -147,7 +142,13 @@ export default function GameController({ theme, onToggleTheme, initialMode }) {
                                         {game.validMoves.length} valid move{game.validMoves.length !== 1 ? 's' : ''} available
                                     </span>
                                 )}
+
                             </div>
+                            {isAIThinking && (
+                                <div className="ai-thinking" aria-live="polite">
+                                    🤖 AI is thinking...
+                                </div>
+                            )}
                         </section>
 
                         {/* Right: Move History */}

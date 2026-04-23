@@ -605,8 +605,6 @@ body {
   font-weight: 700;
   color: var(--accent-gold);
   border: 1px solid var(--accent-gold-glow);
-  margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
 }
 
 /* Board & Grid */
@@ -969,242 +967,504 @@ body {
 }
 
 @media (max-width: 600px) {
+  /* Premium Mobile Design Overrides */
+
   .hero-section {
-    padding: 1rem;
+    padding: 1.5rem;
+    background: radial-gradient(circle at 50% 0%, rgba(170, 59, 255, 0.25), transparent 70%),
+      radial-gradient(circle at 50% 100%, rgba(212, 175, 55, 0.15), transparent 70%),
+      var(--bg-main);
   }
 
   .hero-discs {
-    margin-bottom: 1rem;
-    gap: -15px;
+    margin-bottom: 2rem;
+    perspective: 1000px;
   }
 
   .hero-disc {
-    width: 70px;
-    height: 70px;
-  }
-
-  .hero-disc.disc-black {
-    margin-right: -15px;
+    width: 85px;
+    height: 85px;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6);
   }
 
   .hero-title {
-    font-size: clamp(2.5rem, 15vw, 4rem);
-    margin-bottom: 1rem;
+    font-size: clamp(3rem, 18vw, 4.5rem);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.05em;
   }
 
   .hero-desc {
-    font-size: 0.95rem;
-    margin-bottom: 1.5rem;
-    padding: 0 1rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+    opacity: 0.9;
   }
 
   .btn-hero-mode {
-    padding: 1rem 1.5rem;
-    font-size: 1.1rem;
-    max-width: 280px;
+    padding: 1.1rem 2rem;
+    font-size: 1.15rem;
+    max-width: 100%;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   }
 
-  .hero-seo {
-    margin-top: 2rem;
-    font-size: 0.7rem;
-    padding: 0 2rem;
-  }
-
+  /* Game View Mobile */
   .game-controller {
-    padding: 0.25rem;
+    padding: 0;
+    background: linear-gradient(180deg, var(--bg-main) 0%, #121217 100%);
+    overflow-x: hidden;
     height: 100vh;
-    height: 100dvh;
-    min-height: 100dvh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+  }
+
+  .game-layout {
+    display: flex;
+    flex-direction: column;
+    padding: 70px 10px auto;
+    /* Reduced from 80px */
+    gap: 1.25rem;
     align-items: center;
-    background: radial-gradient(circle at 10% 10%, rgba(170, 59, 255, 0.18), transparent 50%),
-      radial-gradient(circle at 90% 90%, rgba(212, 175, 55, 0.12), transparent 50%);
-    gap: 0.5rem;
-    overflow: hidden;
+    justify-content: center;
+    flex: 1;
+    width: 100%;
+  }
+
+  /* PERFORMANCE OPTIMIZATIONS (Smoothness Fix) */
+  * {
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+  }
+
+  .game-controller,
+  .hero-section,
+  .mobile-show {
+    /* Trigger hardware acceleration */
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
   .scoreboard {
-    margin-top: 85px;
-    width: 96%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    z-index: 4000;
+    margin-bottom: 0;
+    gap: 0.25rem;
+    background: rgba(10, 10, 12, 0.92);
+    /* Slightly more opaque to reduce blur cost */
+    backdrop-filter: blur(12px);
+    /* Reduced from 20px for performance */
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.5rem;
     display: flex;
-    justify-content: center;
-    align-items: stretch;
-    text-align: center;
-    background: transparent;
-    padding: 0;
-    gap: 1rem;
-    box-shadow: none;
-    border: none;
-    backdrop-filter: none;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .player-card {
-    flex: 1;
-    max-width: 160px;
-    background: rgba(255, 255, 255, 0.03);
-    /* Reduce blur on small mobile for performance */
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
-    padding: 0.75rem;
+    will-change: transform, background-color;
+  }
+
+  .board-wrapper {
+    /* Board is static mostly, but let's keep it clean */
+    will-change: transform;
+    transform: translateZ(0);
+  }
+
+  .board-cell {
+    /* Use simpler colors for cells */
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .disc {
+    /* Discs animate, so enable GPU */
+    will-change: transform, opacity;
+    transform: translateZ(0);
+  }
+
+  .mobile-show {
+    padding: 5.5rem 1rem 2rem !important;
+    background: #000000 !important;
+    /* solid black is faster than gradient + blur */
     display: flex;
     flex-direction: column;
+    align-items: stretch !important;
+    backdrop-filter: none !important;
+    /* heavy blurs in full screen drawers lag */
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .modal-overlay {
+    backdrop-filter: blur(8px);
+    /* Lowered blur */
+    -webkit-backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  /* Reduce shadow complexity on mobile */
+  .hero-disc,
+  .board-wrapper,
+  .modal-card,
+  .btn-hero-mode,
+  .ctrl-btn {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
+  }
+
+  .player-card {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    padding: 0.3rem;
+    min-height: 50px;
+    /* Reduced from 60px */
+    flex: 1;
+    position: relative;
+    border: 1px solid transparent;
+    display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    transition: var(--transition-smooth);
   }
 
   .player-card--active {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: var(--accent-gold);
-    box-shadow: 0 0 20px var(--accent-gold-glow);
+    background: rgba(212, 175, 55, 0.08);
+    border-color: rgba(212, 175, 55, 0.2);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
+  }
+
+  .player-card--active::after {
+    display: none;
   }
 
   .player-card__inner {
-    display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    gap: 0.5rem;
+    justify-content: center;
     align-items: center;
-    gap: 0.25rem;
+    width: 100%;
   }
 
   .player-disc-icon {
-    width: 32px;
-    height: 32px;
-    margin-bottom: 2px;
+    width: 22px;
+    height: 22px;
   }
 
   .player-name {
-    font-size: 0.7rem;
-    font-weight: 800;
+    display: block;
+    font-size: 0.55rem;
+    font-weight: 700;
+    opacity: 0.4;
     text-transform: uppercase;
-    color: var(--text-muted);
-    letter-spacing: 0.1em;
+    line-height: 1;
   }
 
   .player-score {
-    font-size: 2rem;
-    font-weight: 900;
-    color: var(--text-primary);
-    font-family: var(--font-display);
+    font-size: 1.5rem;
+    /* Reduced from 1.75rem */
+    font-weight: 800;
     line-height: 1;
   }
 
   .ai-badge {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background: var(--accent-gold);
-    color: #000;
-    font-size: 0.55rem;
-    padding: 1px 6px;
-    border-radius: 4px;
-    font-weight: 900;
+    top: 3px;
+    right: 3px;
+    font-size: 0.45rem;
+    padding: 1px 4px;
   }
 
   .scoreboard__center {
-    display: none !important;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    gap: 2px;
   }
 
+  .vs-text {
+    font-size: 0.6rem;
+    opacity: 0.3;
+  }
+
+  .turn-text {
+    font-size: 0.5rem;
+    opacity: 0.5;
+  }
+
+  /* Bottom Navigation Mobile */
+  /* Bottom Navigation Mobile - RESPONSIVE FIX */
+  .btn-toggle-left,
+  .btn-toggle-right {
+    top: auto;
+    bottom: 15px;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: var(--accent-primary);
+    border: none;
+    box-shadow: 0 8px 20px rgba(170, 59, 255, 0.2);
+    z-index: 4500;
+  }
+
+  .btn-toggle-left {
+    left: 15px;
+  }
+
+  .btn-toggle-right {
+    right: 15px;
+    background: var(--accent-gold);
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.2);
+    color: #000;
+  }
+
+  /* Board Mobile Premium - FIXED SIZE */
   .board-wrapper {
-    width: 100%;
-    max-width: 400px;
+    background: #0f1f18;
+    padding: 0.4rem;
+    border-radius: 16px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+    width: 96vw;
+    max-width: 550px;
     aspect-ratio: 1;
-    padding: 2px;
-    border-radius: 12px;
-    background: #14281e;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     flex-direction: column;
   }
 
   .board-col-labels,
   .board-row {
-    grid-template-columns: 22px repeat(8, 1fr);
-    gap: 2px;
+    grid-template-columns: 20px repeat(8, 1fr);
+    gap: 1px;
+    flex: 1;
   }
 
   .board-label {
-    font-size: 0.65rem;
-    font-weight: 800;
-    color: rgba(255, 255, 255, 0.4);
-    width: 22px;
+    font-size: 0.55rem;
+    opacity: 0.4;
   }
 
-  .status-info {
-    font-size: 0.8rem;
-    margin-top: 0.5rem;
+  .board-cell {
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.02);
   }
 
+  /* AI Thinking Mobile */
   .ai-thinking {
-    margin-top: 0.25rem;
-    font-size: 0.75rem;
+    position: fixed;
+    bottom: 95px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3000;
   }
 
-  /* Modal Mobile Overrides */
+  .game-hint {
+    margin-top: 0;
+    font-size: 0.75rem;
+    position: fixed;
+    bottom: 90px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: var(--text-muted);
+    z-index: 2000;
+  }
+
+
+  /* Drawer Mobile Redesign */
+  .mobile-show {
+    padding: 8.5rem 1rem 2rem !important;
+    /* Slightly tighter padding */
+    background: linear-gradient(180deg, #0a0a0c 0%, #000000 100%) !important;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch !important;
+  }
+
+  .mobile-show .glass-card {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .drawer-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #fff;
+  }
+
+  .btn-drawer-close {
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  /* Control Button Refinements for Mobile */
+  .ctrl-btn {
+    padding: 1rem 1.25rem;
+    font-size: 1rem;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.04);
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  .ctrl-btn--active {
+    background: rgba(170, 59, 255, 0.15) !important;
+    border-color: var(--accent-primary) !important;
+    color: #fff !important;
+  }
+
+  .panel-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    color: var(--accent-gold);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .timeline-view {
+    max-height: none !important;
+    /* Allow it to take full height */
+    padding-bottom: 2rem;
+  }
+
+  .node-content {
+    padding: 1rem;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  /* Modal Mobile Premium - RESPONSIVE FIX */
   .modal-card {
-    padding: 2rem 1.5rem;
-    width: 95%;
+    background: linear-gradient(180deg, rgba(22, 22, 26, 0.98) 0%, rgba(10, 10, 12, 1) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 32px;
+    padding: 2rem 1.25rem;
+    width: 94%;
+    max-width: 380px;
+    box-shadow: 0 30px 100px rgba(0, 0, 0, 0.9);
+    position: relative;
+    overflow-y: auto;
+    max-height: 90vh;
   }
 
   .modal-emoji {
-    font-size: 3.5rem;
+    font-size: 4rem;
     margin-bottom: 1rem;
+    filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.3));
   }
 
   .modal-title {
-    font-size: 2rem;
+    font-size: clamp(2rem, 9vw, 2.8rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #fff 0%, var(--accent-gold) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .modal-subtitle {
-    margin-bottom: 1.5rem;
     font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    opacity: 0.4;
+    margin-bottom: 1.5rem;
   }
 
   .modal-scores {
-    gap: 1.25rem;
+    gap: 1.5rem;
     margin-bottom: 1.5rem;
-  }
-
-  .modal-divider {
-    font-size: 0.9rem;
-  }
-
-  .modal-score-num {
-    font-size: 2.25rem;
+    align-items: center;
   }
 
   .modal-score-item {
     gap: 0.5rem;
+    flex-direction: column;
+  }
+
+  .modal-score-num {
+    font-size: clamp(2.5rem, 12vw, 3.2rem);
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .modal-divider {
+    font-size: 0.75rem;
+    opacity: 0.3;
+    padding-top: 1rem;
   }
 
   .modal-winner-bar {
+    height: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 100px;
     margin-bottom: 2rem;
+    width: 100%;
+    max-width: 240px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+    display: flex;
+  }
+
+  .modal-winner-fill.modal-winner-black {
+    background: #000;
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.1);
+  }
+
+  .modal-winner-fill.modal-winner-white {
+    background: #fff;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
   }
 
   .btn-play-again {
-    padding: 1rem;
-    font-size: 1rem;
+    background: var(--accent-gold);
+    color: #000;
+    border-radius: 20px;
+    padding: 1.25rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+    border: none;
+    text-transform: uppercase;
   }
 }
 
+
 .pass-toast {
   position: fixed;
-  top: 100px;
-  left: 50%;
+  top: 85px;
   transform: translateX(-50%);
   z-index: 10000;
   background: var(--accent-gold);
   color: #000;
-  padding: 0.75rem 1.5rem;
-  border-radius: 100px;
+  padding: 0.75rem 1.25rem;
+  border-radius: 18px;
   font-weight: 800;
+  font-size: 0.9rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  white-space: nowrap;
+  width: 90%;
+  max-width: 340px;
+  text-align: center;
   pointer-events: auto;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  line-height: 1.3;
 }
 
 @media (min-width: 1301px) {

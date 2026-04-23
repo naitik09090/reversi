@@ -12,7 +12,7 @@ const Cell = memo(function Cell({ row, col, value, isValid, isLastPlaced, isFlip
   };
 
   return (
-    <div
+    <motion.div
       className={`board-cell ${isValid ? 'valid-move' : ''} ${isLastPlaced ? 'last-placed' : ''}`}
       onClick={handleClick}
       role="button"
@@ -20,11 +20,12 @@ const Cell = memo(function Cell({ row, col, value, isValid, isLastPlaced, isFlip
         value
           ? `${value} disc at row ${row + 1} col ${col + 1}`
           : isValid
-          ? `Valid move at row ${row + 1} col ${col + 1}`
-          : `Empty cell at row ${row + 1} col ${col + 1}`
+            ? `Valid move at row ${row + 1} col ${col + 1}`
+            : `Empty cell at row ${row + 1} col ${col + 1}`
       }
       tabIndex={isValid ? 0 : -1}
       onKeyDown={e => e.key === 'Enter' && handleClick()}
+      whileTap={isValid ? { scale: 0.92, backgroundColor: 'rgba(212, 175, 55, 0.3)' } : {}}
     >
       {/* Valid move hint */}
       {isValid && !value && (
@@ -49,8 +50,8 @@ const Cell = memo(function Cell({ row, col, value, isValid, isLastPlaced, isFlip
               isLastPlaced
                 ? { type: 'spring', stiffness: 500, damping: 25 }
                 : isFlipped
-                ? { duration: 0.35, ease: 'easeInOut' }
-                : { duration: 0 }
+                  ? { duration: 0.35, ease: 'easeInOut' }
+                  : { duration: 0 }
             }
           >
             {/* Disc sheen highlight */}
@@ -58,7 +59,7 @@ const Cell = memo(function Cell({ row, col, value, isValid, isLastPlaced, isFlip
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 });
 
