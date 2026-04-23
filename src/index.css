@@ -1015,7 +1015,7 @@ body {
   }
 
   .hero-discs {
-    margin-bottom: 2rem;
+    margin-bottom: 1.7rem;
     perspective: 1000px;
   }
 
@@ -1062,9 +1062,8 @@ body {
   .game-layout {
     display: flex;
     flex-direction: column;
-    padding-top: 80px;
     /* Fixed from invalid 'auto' */
-    padding-bottom: 90px;
+    padding-bottom: auto;
     /* Fixed from invalid 'auto' */
     align-items: center;
     justify-content: center;
