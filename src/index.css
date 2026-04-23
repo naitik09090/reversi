@@ -1017,7 +1017,8 @@ body {
     background: radial-gradient(circle at 50% 0%, rgba(170, 59, 255, 0.25), transparent 70%),
       radial-gradient(circle at 50% 100%, rgba(212, 175, 55, 0.15), transparent 70%),
       var(--bg-main);
-    overflow-y: auto;
+    /* Remove internal scroll to allow native body scroll */
+    overflow-y: visible;
   }
 
   .hero-content {
