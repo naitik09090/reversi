@@ -122,7 +122,7 @@ export default function GameController({ theme, onToggleTheme, initialMode }) {
                                 scores={scores}
                                 currentPlayer={currentPlayer}
                                 gameOver={gameOver}
-                                winner={winner} 
+                                winner={winner}
                                 mode={mode}
                             />
 
