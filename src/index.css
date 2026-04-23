@@ -50,12 +50,15 @@
   margin: 0;
   padding: 0;
   /* Hide scrollbars globally but keep functionality */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
 }
 
 *::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
+  /* Chrome, Safari, Opera */
 }
 
 body {
@@ -234,36 +237,41 @@ body {
 
 
 
-/* Game Controller & Layout */
+/* Game Controller & Layout (Shared) */
 .game-controller {
   min-height: 100vh;
-  min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-  background: radial-gradient(circle at 50% 50%, #16161a 0%, #0a0a0c 100%);
-  overflow: hidden;
 }
 
-.game-layout {
-  display: grid;
-  grid-template-columns: minmax(280px, 1fr) auto minmax(280px, 1fr);
-  gap: 4rem;
-  align-items: center;
-  width: 100%;
-  max-width: 1600px;
-  height: 100%;
-}
+/* DESKTOP SPECIFIC LAYOUT */
+@media (min-width: 601px) {
+  .game-controller {
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background: radial-gradient(circle at 50% 50%, #16161a 0%, #0a0a0c 100%);
+    overflow: hidden;
+  }
 
-.game-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
+  .game-layout {
+    display: grid;
+    grid-template-columns: minmax(280px, 1fr) auto minmax(280px, 1fr);
+    gap: 4rem;
+    align-items: center;
+    width: 100%;
+    max-width: 1600px;
+    height: 100%;
+  }
+
+  .game-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
 }
 
 @media (max-width: 1300px) {
@@ -633,12 +641,19 @@ body {
   padding: 1.5rem;
   border-radius: 20px;
   box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.5), 0 20px 80px rgba(0, 0, 0, 0.6);
-  width: auto;
-  height: 75vh; /* Scale perfectly with height */
-  aspect-ratio: 1;
+  width: 100%;
+  max-width: 800px;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
+}
+
+@media (min-width: 601px) {
+  .board-wrapper {
+    width: auto;
+    height: 75vh;
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .board-col-labels {
@@ -1047,13 +1062,33 @@ body {
   .game-layout {
     display: flex;
     flex-direction: column;
-    padding: 70px 10px auto;
-    /* Reduced from 80px */
-    gap: 1.25rem;
+    padding-top: auto;
+    /* Header space */
+    padding-bottom: auto;
+    /* Space for bottom buttons */
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+  }
+
+  .game-main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     flex: 1;
-    width: 100%;
+  }
+
+  .board-wrapper {
+    width: 94vw !important;
+    max-width: 380px !important;
+    padding: 1rem !important;
+    margin: 0 !important;
+    aspect-ratio: 1;
+    height: auto !important;
   }
 
   /* PERFORMANCE OPTIMIZATIONS (Smoothness Fix) */
